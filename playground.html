@@ -1,85 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Playground — Complete Intro to Vue 3</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  </head>
-  <body>
-    <h1>Hello Vue!</h1>
-    <div id="app">
-      <h2>Counter</h2>
-      <p>{{ counter }}</p>
-      <div>
+</head>
+<body>
+<h1>Hello Vue!</h1>
+<div id="app">
+    <h2>Counter</h2>
+  <h3>{{ displayTitle }}</h3>
+    <p>{{ counter }}</p>
+    <div>
         <label for="incrementAmount">Increment by: </label>
-        <input type="number" v-model="incrementAmount" />
-      </div>
-      <button v-on:click="incrementCount">Increment count</button>
-      <hr />
-      <p v-if="message.length % 2 === 0">Even: {{ message }}</p>
-      <p v-else>Odd: {{ message }}</p>
-      <ul>
-        <li v-for="item in listOfNumbers">
-          {{ item.uuid }}
-          <ul>
-            <li v-for="number in item.arr">
-              {{ number }}
-            </li>
-          </ul>
-        </li>
-      </ul>
+        <input type="number" v-model="incrementAmount"/>
     </div>
-    <script>
-      const { createApp } = Vue;
-      const app = createApp({
+    <button v-on:click="incrementCount">Increment count</button>
+    <hr/>
+    <p v-if="message.length % 2 === 0">Even: {{ message }}</p>
+    <p v-else>Odd: {{ message }}</p>
+    <ul>
+        <li v-for="item in listOfNumbers">
+            {{ item.uuid }}
+            <ul>
+                <li v-for="number in item.arr">
+                    {{ number }}
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script>
+    const {createApp} = Vue;
+    const app = createApp({
         data() {
-          return {
-            counter: 10,
-            incrementAmount: 1,
-            message: 'Hello it works',
-            listOfNumbers: [
-              {
-                id: 1,
-                uuid: 'ea188a02-4737-4282-ad92-c3cbd0320c9b',
-                text: 'fine',
-                arr: [1, 2, 3]
-              },
-              {
-                id: 2,
-                uuid: 'd94c2ee6-93d2-4b5e-aba5-6fc8ca0945c4',
-                text: 'dash',
-                arr: [1, 2, 3]
-              },
-              {
-                id: 3,
-                uuid: '65fecb01-82f9-4957-b9bb-4e571c030ef7',
-                text: 'rough',
-                arr: [1, 2, 3]
-              },
-              {
-                id: 4,
-                uuid: '512d4fe3-cc75-4b36-a251-7d6848b1c041',
-                text: 'faint',
-                arr: [1, 2, 3]
-              },
-              {
-                id: 5,
-                uuid: 'ebb9d844-f4ea-422c-82da-e6e85bc5600f',
-                text: 'pull',
-                arr: [1, 2, 3]
-              }
-            ]
-          };
+            return {
+                counter: 10,
+                incrementAmount: 1,
+                counterTitle: "Counter Standard",
+                message: 'Hello it works',
+                listOfNumbers: [
+                    {
+                        id: 1,
+                        uuid: 'ea188a02-4737-4282-ad92-c3cbd0320c9b',
+                        text: 'fine',
+                        arr: [1, 2, 3]
+                    },
+                    {
+                        id: 2,
+                        uuid: 'd94c2ee6-93d2-4b5e-aba5-6fc8ca0945c4',
+                        text: 'dash',
+                        arr: [1, 2, 3]
+                    },
+                    {
+                        id: 3,
+                        uuid: '65fecb01-82f9-4957-b9bb-4e571c030ef7',
+                        text: 'rough',
+                        arr: [1, 2, 3]
+                    },
+                    {
+                        id: 4,
+                        uuid: '512d4fe3-cc75-4b36-a251-7d6848b1c041',
+                        text: 'faint',
+                        arr: [1, 2, 3]
+                    },
+                    {
+                        id: 5,
+                        uuid: 'ebb9d844-f4ea-422c-82da-e6e85bc5600f',
+                        text: 'pull',
+                        arr: [1, 2, 3]
+                    }
+                ]
+            };
         },
         methods: {
-          incrementCount() {
-            this.counter += +this.incrementAmount;
-          },
+            incrementCount() {
+                this.counter += +this.incrementAmount;
+            },
+        },
+        watch: {
+            counter(newValue) {
+                if (newValue > 20) {
+                  this.counterTitle += ' Very Long';
+                }
+            }
+        },
+        computed: {
+            displayTitle() {
+                return "Counter Standard" + (this.counter > 20 ? " Very Long" : "");
+            },
+            charactersCount() {
+                return this.movie.character
+            }
         }
-      });
-      app.mount('#app');
-    </script>
-  </body>
+    });
+    app.mount('#app');
+</script>
+</body>
 </html>

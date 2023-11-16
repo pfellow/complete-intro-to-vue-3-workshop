@@ -15,8 +15,8 @@
           <div v-if="movie.starring.length === 0">Starring: sorry, no data</div>
           <ul v-else>Starring:
             <li v-for="actor in movie.starring">
-              
-              <span @click="favor(actor)"> ❤️ {{ actor }}</span>
+
+              <span @click="favor(actor)"> ❤️ {{ actor }}: {{ lettersCount(actor) }}</span>
             </li>
           </ul>
           <label for="newActor">Add New </label>
@@ -24,11 +24,12 @@
           <button @click="addActor()">Add</button>
           <div>Seasons: {{ movie.seasons }}</div>
           <div>Release dates: {{ movie.dates }}</div>
-        <ul>My favorites: 
+        <ul>My favorites:
           <li v-for="actor in favorList">
             {{ actor }}
           </li>
         </ul>
+        <p> {{ characterCoolness }}</p>
 
     </div>
   </body>
@@ -37,7 +38,7 @@
     const app = createApp({
       data() {
         return {
-          movie: 
+          movie:
             {
               title: "Friends",
               createdBy: "David Crane, Marta Kauffman",
@@ -60,6 +61,14 @@
         addActor() {
           this.movie.starring.push(this.newActor)
           this.newActor = ''
+        },
+        lettersCount(name) {
+          return name.length
+        }
+      },
+      computed: {
+        characterCoolness() {
+          return this.movie.starring.length > 8 ? "Such a good cast" : "Not enough to evaluate!"
         }
       }
     })
